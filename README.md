@@ -24,7 +24,7 @@ Build a web app on AKS that spans multiple regions, ensuring 99.99% uptime, auto
 ### 1: AKS Clusters in Multiple Regions
 - Two AKS clusters running in East US and West US, ensuring regional redundancy
 - ![AKS East](images/akseast.png)
-- ![AKS West](images/akswest.png)
+- ![AKS West](images/akwest.png)
 
 ### 2: Azure Front Door Configuration
 - Azure Front Door set up to route traffic to both AKS clusters for load balancing and failover
@@ -37,7 +37,7 @@ Build a web app on AKS that spans multiple regions, ensuring 99.99% uptime, auto
 ### 4: Application Accessible via Front Door
 - The Node.js web app accessible through the Azure Front Door endpoint
 - ![App Accessible via Front Door](images/app-running.png)
-- ![Service Running on East and West](images/eastandwest)
+- ![Service Running on East and West](images/eastandwest.png)
 
 ### 5: Real-Time Monitoring with Azure Monitor
 - Azure Monitor showing pod health in both regions and logs via a Log Analytics query
