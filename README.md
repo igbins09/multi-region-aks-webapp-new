@@ -5,24 +5,11 @@ This project deploys a highly available Node.js web application across two Azure
 ## Project Objective
 Build a web app on AKS that spans multiple regions, ensuring 99.99% uptime, automated failover, real-time monitoring, and disaster recovery, while keeping costs optimized.
 
-## Architecture
-- **Two AKS Clusters**: Deployed in East US and West US for regional redundancy.
-- **Node.js Web App**: Deployed using Helm charts for consistency and scalability.
-- **Azure Front Door**: Provides global load balancing and automated failover.
-- **Azure Monitor & Log Analytics**: Enables real-time observability and alerting.
-- **Disaster Recovery**: Manual snapshots for quick recovery (Azure Backup optional).
-- **Cost Optimization**: Monitored and optimized using Azure Cost Management.
-
-## Key Features
-- **High Availability**: Multi-region deployment with 99.99% uptime via Azure Front Door.
-- **Automated Failover**: Front Door reroutes traffic if a region fails.
-- **Observability**: Real-time insights with Azure Monitor and Log Analytics.
-- **Disaster Recovery**: Manual snapshots for recovery (e.g., `kubectl get pods --all-namespaces -o yaml > snapshot.yaml`).
-- **Cost Optimization**: Tracked and optimized to ~$150/month using Azure Cost Management.
-
-## Impact
-- Reduced failover time by 80% with Azure Front Door.
-- Optimized resource costs by 15% through monitoring and right-sizing.
+![Architecture Diagram](images/architecture.png)
+- Users access the app via Azure Front Door, which routes traffic to the nearest healthy AKS cluster.
+- Two AKS clusters (East US and West US) host the Node.js app, deployed via Helm.
+- Azure Monitor collects logs and metrics for observability.
+- Manual snapshots enable disaster recovery.
 
 ## Tech Stack
 - Azure Kubernetes Service (AKS)
@@ -32,7 +19,36 @@ Build a web app on AKS that spans multiple regions, ensuring 99.99% uptime, auto
 - Log Analytics
 - Azure Cost Management
 
-## Disaster Recovery Plan
-- **Manual Snapshots**: Run `kubectl get pods --all-namespaces -o yaml > snapshot.yaml` to capture cluster state.
-- **Recovery**: Reapply the snapshot with `kubectl apply -f snapshot.yaml`.
-- *(Optional)* Integrate Azure Backup for automated recovery.
+## Project Flow
+
+### 1: AKS Clusters in Multiple Regions
+- Two AKS clusters running in East US and West US, ensuring regional redundancy
+- ![AKS East](images/akseast.png)
+- ![AKS West](images/akswest.png)
+
+### 2: Azure Front Door Configuration
+- Azure Front Door set up to route traffic to both AKS clusters for load balancing and failover
+- ![Azure Front Door](images/afd.png)
+
+### 3: Helm Deployment of the Web App
+- Deploying the Node.js app to AKS using Helm for consistent and scalable deployments.
+- ![Helm Deployment](images/helm.png)
+
+### 4: Application Accessible via Front Door
+- The Node.js web app accessible through the Azure Front Door endpoint
+- ![App Accessible via Front Door](images/app-running.png)
+- ![Service Running on East and West](images/eastandwest)
+
+### 5: Real-Time Monitoring with Azure Monitor
+- Azure Monitor showing pod health in both regions and logs via a Log Analytics query
+- ![Real-Time Monitor](images/monitoring.png)
+
+### 6: Failover Test
+- Simulated failure in the East US cluster; the app remains accessible via the West US cluster
+- ![Failover Test](images/failover.png)
+
+### 7: Cost Optimization with Azure Cost Management
+- Tracking and optimizing cloud spend using Azure Cost Management
+
+## Conclusion
+This project showcases a robust GitOps workflow adaptable to production environments.
