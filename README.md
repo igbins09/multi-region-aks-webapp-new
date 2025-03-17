@@ -51,4 +51,4 @@ Build a web app on AKS that spans multiple regions, ensuring 99.99% uptime, auto
 - Tracking and optimizing cloud spend using Azure Cost Management
 
 ## Conclusion
-This project showcases a robust GitOps workflow adaptable to production environments.
+This project showcases a robust multi-region architecture for production-ready systems.
